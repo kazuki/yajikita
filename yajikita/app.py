@@ -7,11 +7,12 @@ import json
 
 from bottle import route, run, template, request, response, static_file, HTTPResponse
 
-from yajikita.fitbit_query import register, client_id, redirect_uri, get_friends
+from yajikita.fitbit_query import (
+    register, client_id, client_secret, redirect_uri, get_friends)
 from yajikita.user_master import (
     get_dashboard_info, get_access_token, register_race)
 
-HMAC_KEY = b'yajikita_yajikita'
+HMAC_KEY = os.environ.get('fb_HMAC_KEY', client_secret).encode('utf8')
 
 
 @route('/yajikita/')
